@@ -1,5 +1,6 @@
 import GamesList from "../components/GamesList"
 import Paginator from "../components/Paginator"
+import { IGameItem } from "../models/gameItem"
 
 const games = [
    {
@@ -47,7 +48,7 @@ const games = [
       reviewSummary: "Very Positive<br>88% of the 5,960,836 user reviews for this game are positive.",
       price: "                        Free to Play                    "
    },
-]
+] as IGameItem[]
 
 
 const LikesPage: React.FC = () => {

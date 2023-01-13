@@ -29,7 +29,8 @@ interface Props {
 const GamesList: React.FC<Props> = ({ games }) => {
    return (
       <List>
-         {games.map(game => <GameCard game={game} key={game.appId} />)}
+         {/* some items don't have appId */}
+         {games.map(game => game.appId ? <GameCard game={game} key={game.appId} /> : null)}
       </List>
    )
 }

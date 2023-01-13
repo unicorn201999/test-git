@@ -64,7 +64,7 @@ const Header: React.FC = () => {
          <div><img src={logo} alt="Logo steam" /></div>
          <FilterForm />
          <Nav>
-            <Link to={'/search'}>Search</Link>
+            <Link to={'/'}>Search</Link>
             <Link to={'/likes'}>Like list</Link>
          </Nav>
       </HeaderBar>

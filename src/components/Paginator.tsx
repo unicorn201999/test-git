@@ -2,7 +2,7 @@ import React from 'react'
 import ReactPaginate from 'react-paginate'
 
 type Props = {
-   onPageChange: () => void
+   onPageChange: (selectedItem: { selected: number }) => void
    pageCount: number
 }
 
