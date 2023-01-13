@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
 import { searchApi } from "../services/searchApi"
+import likeSlice from "./like-slice"
 import searchSlice from "./search-slice"
 
 const store = configureStore({
   reducer: {
     [searchApi.reducerPath]: searchApi.reducer,
     search: searchSlice,
+    like: likeSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(searchApi.middleware),

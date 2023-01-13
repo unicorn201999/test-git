@@ -1,6 +1,9 @@
 import styled from "styled-components"
 import { IGameItem } from "../models/gameItem"
 import emptyLike from "../assets/empty-like.png"
+import fillLike from "../assets/like.png"
+import { addGame, addGameId, gamesIdSelector, removeGame, removeGameId } from "../store/like-slice"
+import { useAppDispatch, useAppSelector } from "../store/store"
 
 const ListItem = styled.li`
    background: #17323A;
@@ -52,10 +55,10 @@ const ItemBody = styled.div`
    }
 `
 
-const Like = styled.button`
+const Like = styled.button<{ isLiked: boolean }>`
    height: 22px;
    width: 23px;
-   background: url(${emptyLike}) center no-repeat;
+   background: url(${p => p.isLiked ? fillLike : emptyLike}) center no-repeat;
    display: inline-block;
    border: none;
    cursor: pointer;
@@ -67,6 +70,25 @@ interface Props {
 }
 
 const GameCard: React.FC<Props> = ({ game }) => {
+
+   const dispath = useAppDispatch()
+
+   const addToLikes = (e: React.MouseEvent<HTMLButtonElement>, game: IGameItem) => {
+      e.preventDefault()
+      dispath(addGame(game))
+      dispath(addGameId(game.appId))
+   }
+
+   const removeFromLikes = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+      e.preventDefault()
+      dispath(removeGame(id))
+      dispath(removeGameId(game.appId))
+   }
+
+   const gamesId = useAppSelector(gamesIdSelector)
+
+   const isLiked = gamesId.includes(game.appId)
+
    return (
       <ListItem>
          <img src={game.imgUrl} alt={game.title} />
@@ -76,7 +98,7 @@ const GameCard: React.FC<Props> = ({ game }) => {
                <div>{game.released}</div>
                <div>{game.price}</div>
             </div>
-            <Like>Like</Like>
+            <Like isLiked={isLiked} onClick={(e) => { isLiked ? removeFromLikes(e, game.appId) : addToLikes(e, game) }}>{isLiked ? 'Unlike' : 'Like'}</Like>
          </ItemBody>
       </ListItem>
    )
