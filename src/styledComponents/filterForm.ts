@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import searchIcon from '../assets/search-icon.png'
-import orderIcon from '../assets/order-icon.png'
+import styled from "styled-components"
+import searchIcon from "../assets/search-icon.png"
+import orderIcon from "../assets/order-icon.png"
 
 export const HEADER_ITEM_TEMPLATE = `
   background: #837F7F;
@@ -24,24 +24,23 @@ export const HEADER_ITEM_TEMPLATE = `
 export const Input = styled.input`
   ${HEADER_ITEM_TEMPLATE}
   cursor: default;
-`;
+`
 
-export const SearchButton = styled.button`
-  background: url(${searchIcon})  center no-repeat;
+export const SearchIcon = styled.div`
+  background: url(${searchIcon}) center no-repeat;
   font-size: 0;
   border: none;
   height: 23px;
   width: 23px;
   display: inline-block;
-  cursor: pointer;
 `
 
 export const Select = styled.select`
   ${HEADER_ITEM_TEMPLATE}
-`;
+`
 
 export const OrderSelect = styled(Select)`
-  width: 36px;  
+  width: 36px;
   -webkit-appearance: none;
   -moz-appearance: none;
   background-image: url(${orderIcon});
@@ -53,5 +52,3 @@ export const OrderSelect = styled(Select)`
     font-size: 14px;
   }
 `
-
-

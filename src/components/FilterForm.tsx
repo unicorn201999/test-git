@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
 import { FilterBy, IFilter, Order } from "../models/filter"
-import { Input, OrderSelect, SearchButton, Select } from "../styledComponents/filterForm"
+import { Input, OrderSelect, SearchIcon, Select } from "../styledComponents/filterForm"
 import { useAppDispatch } from "../store/store";
 import { setFilter } from "../store/search-slice";
+import useDebounce from "../hooks/debounce";
 
 const SearchInput = styled.div`
    position: relative;
@@ -12,7 +13,7 @@ const SearchInput = styled.div`
       height: 100%;
    };
 
-   & button {
+   & > div {
       position: absolute;
       right: 15px;
       top: 6px;
@@ -54,15 +55,23 @@ const FilterForm: React.FC = () => {
 
    const dispath = useAppDispatch()
 
-   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
+   //use debounce to prevent extra fetching
+   const debouncedName = useDebounce(name, 300)
+
+   useEffect(() => {
       const filter: IFilter = {
          name,
          order,
          filterBy
       }
       dispath(setFilter(filter))
+   }, [debouncedName])
+
+   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+      e.preventDefault()
+      setName(e.target.value)
    }
+
    const onChangeFilterBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
       e.preventDefault()
       setFilterBy(e.target.value as FilterBy)
@@ -86,13 +95,13 @@ const FilterForm: React.FC = () => {
    }
 
    return (
-      <Form onSubmit={onSubmit}>
+      <Form>
          <SearchInput>
             <Input
                value={name}
-               onChange={(e) => setName(e.target.value)}
+               onChange={onChangeName}
                type="text" name="search-line" id="search-line" placeholder="Enter an app name..." />
-            <SearchButton type="submit">Search</SearchButton>
+            <SearchIcon>Search icon</SearchIcon>
          </SearchInput>
          <OrderSelect
             value={order}

@@ -6,6 +6,7 @@ import { useAppSelector } from "../store/store";
 
 
 const SearchPage: React.FC = () => {
+
    const filter = useAppSelector(filterSelector)
 
    const skip = filter.name ? false : true
