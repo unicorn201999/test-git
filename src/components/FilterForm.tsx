@@ -99,7 +99,9 @@ const FilterForm: React.FC = () => {
             <Input
                value={name}
                onChange={onChangeName}
-               type="text" name="search-line" id="search-line" placeholder="Enter an app name..." />
+               type="text" name="search-line" id="search-line" placeholder="Enter an app name..."
+               autoComplete={'off'}
+            />
             <SearchIcon>Search icon</SearchIcon>
          </SearchInput>
          <SelectComponent
