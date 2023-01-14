@@ -20,8 +20,18 @@ const LikesPage: React.FC = () => {
 
    const filter = useAppSelector(filterSelector)
 
+   //searching liked games on like page
+   let searchedGames: IGameItem[]
+
+   if (filter?.name && filter.name.length > 0) {
+      //check: does game title include typed text(filtered name)
+      searchedGames = [...games].filter(game => (game.title).toLocaleLowerCase().includes((filter.name).toLocaleLowerCase()))
+   } else {
+      searchedGames = [...games]
+   }
+
    return (
-      <PageContainer games={games as IGameItem[]} filter={filter} isFetching={false} />
+      <PageContainer games={searchedGames as IGameItem[]} filter={filter} isFetching={false} />
    )
 }
 
