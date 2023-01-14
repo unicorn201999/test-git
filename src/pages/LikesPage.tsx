@@ -13,7 +13,8 @@ const LikesPage: React.FC = () => {
 
    useEffect(() => {
       const gamesList = localStorage.getItem(LIKED_GAMES)
-      const gamesListParse: IGameItem[] = JSON.parse(gamesList as string)
+      const gamesListFromStorage = JSON.parse(gamesList as string)
+      const gamesListParse: IGameItem[] = gamesListFromStorage ? gamesListFromStorage : []
       dispatch(setGamesList(gamesListParse))
       dispatch(setGamesId())
    }, [dispatch])

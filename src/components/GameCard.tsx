@@ -112,6 +112,12 @@ const GameCard: React.FC<Props> = ({ game }) => {
 
    const [isOpen, setIsOpen] = useState(false)
 
+   const NoData = styled.div`
+      background: #837F7F;
+      border-radius: 10px;
+      font-size: 30px;
+      padding: 10px;
+   `
    return (
       <ListItem onClick={() => {
          setIsOpen(true); console.log('open');
@@ -126,7 +132,11 @@ const GameCard: React.FC<Props> = ({ game }) => {
             <Like isLiked={isLiked} onClick={(e) => { e.stopPropagation(); isLiked ? removeFromLikes(e, game.appId) : addToLikes(e, game) }}>{isLiked ? 'Unlike' : 'Like'}</Like>
             <PlayButton isLiked={isLiked}>Play</PlayButton>
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-               <GameDetail gameId={game.appId} />
+               {game.appId
+                  ? <GameDetail gameId={game.appId} />
+                  : <NoData>No Data</NoData>
+               }
+
             </Modal>
          </ItemBody>
       </ListItem>

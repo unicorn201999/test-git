@@ -30,7 +30,7 @@ const GamesList: React.FC<Props> = ({ games }) => {
    return (
       <List>
          {/* some items don't have appId */}
-         {games.map(game => game.appId ? <GameCard game={game} key={game.appId} /> : null)}
+         {games && games.map(game => <GameCard game={game} key={game.appId} />)}
       </List>
    )
 }
