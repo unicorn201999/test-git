@@ -38,8 +38,8 @@ export const dateToNumber = (date: string) => {
 export const sortGamesBy = (games: IGameItem[], filter: IFilter) => {
   //converting function, convert price or date (depends on filter)
   const conventor =
-    filter.filterBy === "price" ? strPriceToNumber : dateToNumber
-  const prop = filter.filterBy === "price" ? "price" : "released"
+    filter.filterBy === "Price" ? strPriceToNumber : dateToNumber
+  const prop = filter.filterBy === "Price" ? "price" : "released"
 
   const filteredGames = [...games].sort((a, b) => {
     const aProp = conventor(a[prop])

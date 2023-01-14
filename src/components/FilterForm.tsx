@@ -5,6 +5,7 @@ import { Input, OrderSelect, SearchIcon, Select } from "../styledComponents/filt
 import { useAppDispatch } from "../store/store";
 import { setFilter } from "../store/search-slice";
 import useDebounce from "../hooks/debounce";
+import SelectComponent from "./SelectComponent";
 
 const SearchInput = styled.div`
    position: relative;
@@ -30,20 +31,18 @@ const Form = styled.form`
       grid-template-columns: 1fr 36px;
       grid-template-rows: 1fr 1fr;
       & > div {
-         order: 1;
-         grid-column-start: 1;
-         grid-column-end: 3;
-      }
-
-      & > select {
          &:first-of-type{
+            order: 1;
+            grid-column-start: 1;
+            grid-column-end: 3;
+         }
+         &:nth-of-type(2){
             order: 3;
          }
          &:last-of-type{
             order: 2;
          }
       }
-
    }
 `
 
@@ -51,7 +50,7 @@ const Form = styled.form`
 const FilterForm: React.FC = () => {
    const [name, setName] = useState('')
    const [order, setOrder] = useState<Order>('lover-to-bigger')
-   const [filterBy, setFilterBy] = useState<FilterBy>('price')
+   const [filterBy, setFilterBy] = useState<FilterBy>('Price')
 
    const dispath = useAppDispatch()
 
@@ -72,7 +71,7 @@ const FilterForm: React.FC = () => {
       setName(e.target.value)
    }
 
-   const onChangeFilterBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
+   const onChangeFilterBy = (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault()
       setFilterBy(e.target.value as FilterBy)
       const filter: IFilter = {
@@ -83,7 +82,7 @@ const FilterForm: React.FC = () => {
       dispath(setFilter(filter))
    }
 
-   const onChangeOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
+   const onChangeOrder = (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault()
       setOrder(e.target.value as Order)
       const filter: IFilter = {
@@ -103,20 +102,24 @@ const FilterForm: React.FC = () => {
                type="text" name="search-line" id="search-line" placeholder="Enter an app name..." />
             <SearchIcon>Search icon</SearchIcon>
          </SearchInput>
-         <OrderSelect
-            value={order}
-            onChange={onChangeOrder}
-            name="order" id="filterBy">
-            <option value="lover-to-bigger">Lower to bigger</option>
-            <option value="bigger-to-lower">Bigger to lower</option>
-         </OrderSelect>
-         <Select
-            value={filterBy}
-            onChange={onChangeFilterBy}
-            name="filterBy" id="filterBy">
-            <option value="price">Price</option>
-            <option value="publish-date">Publish Date</option>
-         </Select>
+         <SelectComponent
+            SelectStyled={OrderSelect}
+            filterBy={order}
+            onChangeFilterBy={onChangeOrder}
+            items={[
+               { value: 'lover-to-bigger', label: 'Lower to bigger' },
+               { value: 'bigger-to-lower', label: 'Bigger to lower' }
+            ]}
+         />
+         <SelectComponent
+            SelectStyled={Select}
+            filterBy={filterBy}
+            onChangeFilterBy={onChangeFilterBy}
+            items={[
+               { value: 'Price', label: 'Price' },
+               { value: 'Publish Date', label: 'Publish Date' }
+            ]}
+         />
       </Form>
    )
 }
