@@ -24,7 +24,7 @@ const PageContainer: React.FC<Props> = ({ games, filter, isFetching }) => {
    }, [filter])
 
    if (isFetching) return <Preloader />
-   if (!games) return <NoResults>No results</NoResults>
+   if (!games || games.length === 0) return <NoResults>No results</NoResults>
 
    const onPageChange: (selectedItem: { selected: number }) => void = (selectedItem) => {
       setPage(selectedItem.selected + 1)

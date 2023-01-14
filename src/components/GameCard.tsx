@@ -123,7 +123,7 @@ const GameCard: React.FC<Props> = ({ game }) => {
                <div>{game.released}</div>
                <div>{game.price}</div>
             </div>
-            <Like isLiked={isLiked} onClick={(e) => { isLiked ? removeFromLikes(e, game.appId) : addToLikes(e, game) }}>{isLiked ? 'Unlike' : 'Like'}</Like>
+            <Like isLiked={isLiked} onClick={(e) => { e.stopPropagation(); isLiked ? removeFromLikes(e, game.appId) : addToLikes(e, game) }}>{isLiked ? 'Unlike' : 'Like'}</Like>
             <PlayButton isLiked={isLiked}>Play</PlayButton>
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
                <GameDetail gameId={game.appId} />
