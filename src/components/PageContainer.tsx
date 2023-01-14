@@ -5,13 +5,17 @@ import Preloader from "./Preloader";
 import { sortGamesBy } from "../utils/sort";
 import { IGameItem } from "../models/gameItem";
 import { IFilter } from "../models/filter";
+import styled from "styled-components";
 
 type Props = {
    isFetching: boolean
    games: IGameItem[]
    filter: IFilter
 }
-
+const NoResults = styled.div`
+font-size: 30px;
+margin-top: 10px;
+`
 const PageContainer: React.FC<Props> = ({ games, filter, isFetching }) => {
    const [page, setPage] = useState(1)
 
@@ -20,7 +24,7 @@ const PageContainer: React.FC<Props> = ({ games, filter, isFetching }) => {
    }, [filter])
 
    if (isFetching) return <Preloader />
-   if (!games) return <div>No results</div>
+   if (!games) return <NoResults>No results</NoResults>
 
    const onPageChange: (selectedItem: { selected: number }) => void = (selectedItem) => {
       setPage(selectedItem.selected + 1)

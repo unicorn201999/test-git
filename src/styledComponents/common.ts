@@ -1,23 +1,31 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Container = styled.div`
   margin: 0 auto;
   width: 1170px;
   padding: 35px 18px 18px;
 
-  @media (max-width: 1200px){
+  @media (max-width: 1200px) {
     width: 990px;
   }
 
-  @media (max-width: 992px){
+  @media (max-width: 992px) {
     width: 765px;
   }
 
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     width: 570px;
   }
 
-  @media (max-width: 576px){
+  @media (max-width: 576px) {
     max-width: 400px;
   }
-`;
+
+  @media (max-width: 403px) {
+    max-width: 385px;
+  }
+
+  @media (max-width: 387px) {
+    max-width: 375px;
+  }
+`

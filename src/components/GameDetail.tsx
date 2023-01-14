@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useGetDetailByIdQuery } from '../services/detailApi'
+import Preloader from './Preloader'
 
 const Card = styled.div`
    background: #837F7F;
@@ -30,7 +31,7 @@ const GameDetail: React.FC<Props> = ({ gameId }) => {
    return (
       <Card>
          {isFetching
-            ? <div>Loading</div>
+            ? <Preloader />
             : <div>
                <div>Developer name: {detail?.developer.name}</div>
                <div>Developer link: <a href={detail?.developer.link}>To developer page</a></div>
