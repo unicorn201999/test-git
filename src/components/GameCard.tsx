@@ -2,8 +2,12 @@ import styled from "styled-components"
 import { IGameItem } from "../models/gameItem"
 import emptyLike from "../assets/empty-like.png"
 import fillLike from "../assets/like.png"
+import playButton from "../assets/PlayButton.png"
 import { addGame, addGameId, gamesIdSelector, removeGame, removeGameId } from "../store/like-slice"
 import { useAppDispatch, useAppSelector } from "../store/store"
+import { useState } from "react"
+import Modal from "./Modal"
+import GameDetail from "./GameDetail"
 
 const ListItem = styled.li`
    background: #17323A;
@@ -49,17 +53,34 @@ const ItemBody = styled.div`
    }
 
    & > button {
-      right: 12px;
-      bottom: 7.5px; 
       position: absolute;
+      padding:0;
+      &:first-of-type {
+         right: 12px;
+         bottom: 7.5px; 
+      }
+      &:last-of-type {
+         right: 17px;
+         bottom: 90px; 
+      }
    }
 `
 
 const Like = styled.button<{ isLiked: boolean }>`
    height: 22px;
-   width: 23px;
+   width: 28px;
    background: url(${p => p.isLiked ? fillLike : emptyLike}) center no-repeat;
    display: inline-block;
+   border: none;
+   cursor: pointer;
+   color: transparent;
+`
+
+const PlayButton = styled.button<{ isLiked: boolean }>`
+   height: 43px;
+   width: 48px;
+   background: url(${playButton}) center -5% no-repeat;
+   display: ${p => p.isLiked ? 'inline-block' : 'none'};
    border: none;
    cursor: pointer;
    color: transparent;
@@ -89,8 +110,12 @@ const GameCard: React.FC<Props> = ({ game }) => {
 
    const isLiked = gamesId.includes(game.appId)
 
+   const [isOpen, setIsOpen] = useState(false)
+
    return (
-      <ListItem>
+      <ListItem onClick={() => {
+         setIsOpen(true); console.log('open');
+      }}>
          <img src={game.imgUrl} alt={game.title} />
          <ItemBody>
             <h3>{game.title}</h3>
@@ -99,6 +124,10 @@ const GameCard: React.FC<Props> = ({ game }) => {
                <div>{game.price}</div>
             </div>
             <Like isLiked={isLiked} onClick={(e) => { isLiked ? removeFromLikes(e, game.appId) : addToLikes(e, game) }}>{isLiked ? 'Unlike' : 'Like'}</Like>
+            <PlayButton isLiked={isLiked}>Play</PlayButton>
+            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+               <GameDetail gameId={game.appId} />
+            </Modal>
          </ItemBody>
       </ListItem>
    )
