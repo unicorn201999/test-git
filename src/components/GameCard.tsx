@@ -10,7 +10,9 @@ import Modal from "./Modal"
 import GameDetail from "./GameDetail"
 
 const ListItem = styled.li`
-   background: #17323A;
+   // background: #17323A;
+   background: red;
+
    border-radius: 10px;
    overflow: hidden;
 
